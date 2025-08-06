@@ -1,0 +1,14 @@
+﻿{
+  "locale": "es-es",
+  "channel_timeout": 180,
+  "client_ref": "reference",
+  "code_length": 4,
+  "code": "e4dR1Qz",
+  "brand": "ACME",
+  "workflow": [
+    {
+      "channel": "email",
+      "to": "alice@company.com"
+    }
+  ]
+}

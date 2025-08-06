@@ -1,44 +1,55 @@
+#region
+using DockerApiSandbox.Api;
+using DockerApiSandbox.Api.AuthenticationVerification;
+using DockerApiSandbox.Api.Callback;
+using DockerApiSandbox.Api.InputValidation;
+using DockerApiSandbox.Api.OperationIdentification;
+using DockerApiSandbox.Api.OutputGeneration;
+using Serilog;
+#endregion
+
+Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Host.UseSerilog();
+builder.Services.AddMemoryCache();
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddControllers();
+builder.Services.AddScoped<DocumentStore>();
+builder.Services.AddScoped<DocumentClient>();
+builder.Services.AddScoped<IEnvironmentAdapter, EnvironmentAdapter>();
+builder.Services.Configure<List<ApiSpecification>>(builder.Configuration.GetSection("specs"));
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapWhen(context => !context.Request.Path.StartsWithSegments("/_"), branch =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    branch.UseMiddleware<OperationIdentificationMiddleware>();
+    branch.UseMiddleware<AuthenticationVerificationMiddleware>();
+    branch.UseMiddleware<InputValidationMiddleware>();
+    branch.UseMiddleware<OutputGenerationMiddleware>();
+    branch.UseMiddleware<CallbackMiddleware>();
+});
+app.UseHttpsRedirection();
+app.MapControllers();
+var provider = app.Services.CreateScope().ServiceProvider;
+var store = provider.GetRequiredService<DocumentStore>();
+var environment = provider.GetRequiredService<IEnvironmentAdapter>();
+await Task.WhenAll(store.LoadDocuments());
+var port = environment.GetVariable("PORT");
+if (string.IsNullOrEmpty(port))
+{
+    app.Run();
+}
+else
+{
+    app.Run($"http://0.0.0.0:{port}");
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+namespace DockerApiSandbox.Api
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public class Program
+    {
+        protected Program()
+        {
+        }
+    }
 }

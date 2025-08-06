@@ -1,0 +1,54 @@
+﻿{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Example API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/"
+    }
+  ],
+  "paths": {
+    "/callback": {
+      "post": {
+        "operationId": "no-auth",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        },
+        "callbacks": {
+          "delivery-receipt": {
+            "callback": {
+              "post": {
+                "operationId": "delivery-receipt",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "Status": {
+                            "type": "string",
+                            "example": "Delivered"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Your server returns this code if it accepts the callback"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

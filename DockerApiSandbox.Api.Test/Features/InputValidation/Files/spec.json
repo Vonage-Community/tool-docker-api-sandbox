@@ -1,0 +1,143 @@
+﻿{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Example API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/"
+    }
+  ],
+  "paths": {
+    "/query": {
+      "post": {
+        "parameters": [
+          {
+            "name": "param_1",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "param_2",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc",
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        ],
+        "operationId": "query-post",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        }
+      }
+    },
+    "/path/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "path-post",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        }
+      }
+    },
+    "/body": {
+      "post": {
+        "operationId": "body-post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "order": {
+                    "type": "string",
+                    "default": "asc",
+                    "enum": [
+                      "asc",
+                      "desc",
+                      "ASC",
+                      "DESC"
+                    ]
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "minimum": 50,
+                    "maximum": 100
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "order": {
+                    "type": "string",
+                    "default": "asc",
+                    "enum": [
+                      "asc",
+                      "desc",
+                      "ASC",
+                      "DESC"
+                    ]
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "minimum": 50,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        }
+      }
+    }
+  }
+}

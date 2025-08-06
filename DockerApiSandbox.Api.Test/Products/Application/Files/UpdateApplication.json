@@ -1,0 +1,79 @@
+{
+  "name": "Demo Application",
+  "keys": {
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCA\nKOxjsU4pf/sMFi9N0jqcSLcjxu33G\nd/vynKnlw9SENi+UZR44GdjGdmfm1\ntL1eA7IBh2HNnkYXnAwYzKJoa4eO3\n0kYWekeIZawIwe/g9faFgkev+1xsO\nOUNhPx2LhuLmgwWSRS4L5W851Xe3f\nUQIDAQAB\n-----END PUBLIC KEY-----\n"
+  },
+  "capabilities": {
+    "voice": {
+      "webhooks": {
+        "answer_url": {
+          "address": "https://example.com/webhooks/answer",
+          "http_method": "GET",
+          "connection_timeout": 500,
+          "socket_timeout": 3000
+        },
+        "fallback_answer_url": {
+          "address": "https://fallback.example.com/webhooks/answer",
+          "http_method": "GET",
+          "connection_timeout": 500,
+          "socket_timeout": 3000
+        },
+        "event_url": {
+          "address": "https://example.com/webhooks/event",
+          "http_method": "POST",
+          "connection_timeout": 500,
+          "socket_timeout": 3000
+        }
+      },
+      "signed_callbacks": false,
+      "conversations_ttl": 12,
+      "leg_persistence_time": 10,
+      "region": "eu-west"
+    },
+    "rtc": {
+      "webhooks": {
+        "event_url": {
+          "address": "https://example.com/webhooks/event",
+          "http_method": "POST"
+        }
+      },
+      "signed_callbacks": false
+    },
+    "messages": {
+      "webhooks": {
+        "inbound_url": {
+          "address": "https://example.com/webhooks/inbound",
+          "http_method": "POST"
+        },
+        "status_url": {
+          "address": "https://example.com/webhooks/status",
+          "http_method": "POST"
+        }
+      }
+    },
+    "vbc": {},
+    "network_apis": {
+      "network_application_id": "2bzfIFqRG128IcjSj1YhZNtw6LADG",
+      "redirect_uri": "https://my-redirect-uri.example.com"
+    },
+    "meetings": {
+      "webhooks": {
+        "recording_url": {
+          "address": "https://example.com/webhooks/recordings",
+          "http_method": "POST"
+        },
+        "rooms_url": {
+          "address": "https://example.com/webhooks/rooms",
+          "http_method": "POST"
+        },
+        "sessions_url": {
+          "address": "https://example.com/webhooks/sessions",
+          "http_method": "POST"
+        }
+      }
+    }
+  },
+  "privacy": {
+    "improve_ai": true
+  }
+}

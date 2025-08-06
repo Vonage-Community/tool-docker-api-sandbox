@@ -1,0 +1,19 @@
+﻿{
+  "message_type": "text",
+  "text": "Hello from Vonage!",
+  "to": "447700900000",
+  "from": "9876543210",
+  "channel": "viber_service",
+  "viber_service": {
+    "category": "transaction",
+    "ttl": 600,
+    "type": "string",
+    "action": {
+      "url": "https://example.com/page1.html",
+      "text": "Find out more"
+    }
+  },
+  "webhook_version": "v1",
+  "client_ref": "abc123",
+  "webhook_url": "https://example.com/status"
+}

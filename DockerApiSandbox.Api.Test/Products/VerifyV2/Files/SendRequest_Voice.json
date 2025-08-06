@@ -1,0 +1,15 @@
+﻿{
+  "locale": "es-es",
+  "channel_timeout": 180,
+  "client_ref": "reference",
+  "code_length": 4,
+  "code": "e4dR1Qz",
+  "brand": "ACME",
+  "template_id": "4ed3027d-8762-44a0-aa3f-c393717413a4",
+  "workflow": [
+    {
+      "channel": "voice",
+      "to": "447700900000"
+    }
+  ]
+}

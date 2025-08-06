@@ -1,0 +1,14 @@
+﻿{
+  "message_type": "text",
+  "text": "Hello from Vonage!",
+  "to": "0123456789",
+  "from": "9876543210",
+  "channel": "messenger",
+  "messenger": {
+    "category": "response",
+    "tag": "CONFIRMED_EVENT_UPDATE"
+  },
+  "webhook_version": "v1",
+  "client_ref": "abc123",
+  "webhook_url": "https://example.com/status"
+}

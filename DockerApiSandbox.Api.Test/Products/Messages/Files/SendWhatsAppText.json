@@ -1,0 +1,13 @@
+﻿{
+  "message_type": "text",
+  "text": "Hello from Vonage!",
+  "to": "447700900000",
+  "from": "447700900001",
+  "channel": "whatsapp",
+  "context": {
+    "message_uuid": "a1b2c3d4a1b2c3d4"
+  },
+  "webhook_version": "v1",
+  "client_ref": "abc123",
+  "webhook_url": "https://example.com/status"
+}

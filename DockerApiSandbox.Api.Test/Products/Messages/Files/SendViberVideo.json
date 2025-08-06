@@ -1,0 +1,23 @@
+﻿{
+  "message_type": "video",
+  "video": {
+    "url": "https://example.com/image.jpg",
+    "caption": "Check out this new video",
+    "thumb_url": "https://example.com/file1.jpg",
+    "duration": "123",
+    "file_size": "1"
+  },
+  "to": "447700900000",
+  "from": "9876543210",
+  "channel": "viber_service",
+  "viber_service": {
+    "category": "transaction",
+    "duration": "123",
+    "file_size": "1",
+    "ttl": 600,
+    "type": "string"
+  },
+  "webhook_version": "v1",
+  "client_ref": "abc123",
+  "webhook_url": "https://example.com/status"
+}

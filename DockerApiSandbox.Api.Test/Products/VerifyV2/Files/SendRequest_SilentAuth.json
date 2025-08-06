@@ -1,0 +1,11 @@
+﻿{
+  "brand": "ACME",
+  "workflow": [
+    {
+      "channel": "silent_auth",
+      "to": "447700900000",
+      "redirect_url": "https://acme-app.com/sa/redirect",
+      "sandbox": true
+    }
+  ]
+}

@@ -39,6 +39,9 @@ flowchart TD
 
 ## How to run the API Sandbox locally using Docker Images
 
+> The docker image is, for the moment, published under a private DockerHub account.
+> It will be moved under a Vonage acount shortly.
+
 The API Sandbox is available as a Docker Image on [Docker Hub](https://hub.docker.com/repository/docker/tr00d/openapiexperiment-api/general).
 
 Simply running `docker run tr00d/openapiexperiment-api:latest` **won't fully enable the sandbox**, as it requires additional configuration.
