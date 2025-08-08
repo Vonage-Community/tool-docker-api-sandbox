@@ -6,4 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Vonage" Version="8.2.0" />
+    </ItemGroup>
+
 </Project>
