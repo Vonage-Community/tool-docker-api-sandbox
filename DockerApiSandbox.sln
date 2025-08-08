@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CONTRIBUTING.md = CONTRIBUTING.md
 		dockerfile = dockerfile
 		docker-compose.yml = docker-compose.yml
+		cliff.toml = cliff.toml
+		bump_version.js = bump_version.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{4C20C8EE-48EC-4332-9D2C-78E074A2E1DD}"
@@ -20,6 +22,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerApiSandbox.Api.Test", "DockerApiSandbox.Api.Test\DockerApiSandbox.Api.Test.csproj", "{ED5441CB-FC98-4A1D-8299-3111DCA6A761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerApiSandbox.Sample", "DockerApiSandbox.Sample\DockerApiSandbox.Sample.csproj", "{F862085B-309D-406F-B680-5407934942A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D6BBFF16-4799-495B-B34A-6B32EB365A98}"
+	ProjectSection(SolutionItems) = preProject
+		.git\hooks\pre-commit = .git\hooks\pre-commit
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
