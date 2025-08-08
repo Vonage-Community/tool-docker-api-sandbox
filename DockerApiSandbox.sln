@@ -6,12 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		.editorconfig = .editorconfig
-		README.md = README.md
-		CONTRIBUTING.md = CONTRIBUTING.md
-		dockerfile = dockerfile
-		docker-compose.yml = docker-compose.yml
-		cliff.toml = cliff.toml
-		bump_version.js = bump_version.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{4C20C8EE-48EC-4332-9D2C-78E074A2E1DD}"
@@ -26,6 +20,21 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D6BBFF16-4799-495B-B34A-6B32EB365A98}"
 	ProjectSection(SolutionItems) = preProject
 		.git\hooks\pre-commit = .git\hooks\pre-commit
+		bump_version.js = bump_version.js
+		cliff.toml = cliff.toml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C229F056-EE9C-4E57-986B-46B1D0112899}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		CHANGELOG.md = CHANGELOG.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{89B58DC8-4ACC-4390-88EA-32F58C344B83}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		dockerfile = dockerfile
 	EndProjectSection
 EndProject
 Global

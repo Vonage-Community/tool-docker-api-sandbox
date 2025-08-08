@@ -25,11 +25,11 @@ flowchart TD
     D --> E1["Endpoint Identification<br/>(Match verb, path, query)"]
     E1 -->|Found| E2["Authentication<br/>(Basic || Bearer, if specified)"]
     E1 -->|Not found| F1["404 Not Found"]
-    E2 -->|Authenticated<br/>Or no auth required| E3["Request validation\n(Query + Body)"]
+    E2 -->|Authenticated<br/>Or no auth required| E3["Request validation<br/>(Query + Body)"]
     E2 -->|Failed| F2["401 Unauthorized"]
-    E3 -->|Valid| E4["Fake output generation\n(if required)"]
+    E3 -->|Valid| E4["Fake output generation<br/>(if required)"]
     E3 -->|Invalid| F3["403"]
-    E4 --> E5["Callback\n(if required)"]
+    E4 --> E5["Callback<br/>(if required)"]
     E5 --> G["Return mocked response"]
 ```
 
