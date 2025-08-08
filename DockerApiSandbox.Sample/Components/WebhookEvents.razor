@@ -1,0 +1,38 @@
+﻿@using DockerApiSandbox.Sample.Webhooks
+@inject IWebhookService WebhookService
+@rendermode InteractiveServer
+
+
+<h3>Events</h3>
+<ul>
+    <ul>
+        @foreach (var message in events)
+        {
+            <li>@message</li>
+        }
+    </ul>
+</ul>
+
+@code {
+    private readonly List<string> events = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        WebhookService.OnEventReceived += HandledReceivedEvent;
+    }
+
+    private void HandledReceivedEvent(IEvent @event)
+    {
+        InvokeAsync(() =>
+        {
+            events.Add(@event.Message);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        WebhookService.OnEventReceived -= HandledReceivedEvent;
+    }
+
+}
