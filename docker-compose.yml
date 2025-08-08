@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+    image: tool-docker-api-sandbox
+    environment:
+      - PORT=${PORT:-8080}
+      - CLEAR_SPECS=${CLEAR_SPECS}
+      - SPEC_SMS=${SPEC_SMS}
+      - SPEC_APPLICATION=${SPEC_APPLICATION}
+      - SPEC_VOICE=${SPEC_VOICE}
+      - SMS_DLR=${SMS_DLR}
+    network_mode: host
