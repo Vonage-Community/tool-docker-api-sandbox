@@ -11,17 +11,17 @@ public static class HttpRequestExtensions
     private const string ContentTypeForm = "application/x-www-form-urlencoded";
     private const string ContentTypeJson = "application/json";
 
-    public static async Task<bool> IsRequestBodyValid(this HttpRequest request, OpenApiOperation operation)
+    public static async Task<IEnumerable<string>> GetRequestBodyErrors(this HttpRequest request, OpenApiOperation operation)
     {
         if (operation.RequestBody == null)
         {
-            return true;
+            return [];
         }
 
         var bodyContent = await request.GetRequestBody();
         if (string.IsNullOrEmpty(bodyContent))
         {
-            return false;
+            return ["Missing body"];
         }
 
         var contentType = request.GetContentType();
@@ -33,13 +33,12 @@ public static class HttpRequestExtensions
             ContentTypeJson => bodyContent,
             _ => string.Empty,
         };
-        return !contentSchema.Schema.Validate(jsonBody).Any();
+        return contentSchema.Schema.Validate(jsonBody).Select(error => error.Format());
     }
 
-    public static bool IsRequestQueryValid(this HttpRequest request, OpenApiOperation operation) =>
+    public static IEnumerable<string> GetRequestQueryErrors(this HttpRequest request, OpenApiOperation operation) =>
         operation.Parameters.Where(parameter => parameter.Kind == OpenApiParameterKind.Query)
-            .Select(parameter => parameter.IsQueryParameterValid(request.Query))
-            .All(result => result);
+            .SelectMany(parameter => parameter.GetQueryParameterErrors(request.Query));
 
     private static string GetContentType(this HttpRequest request) =>
         request.ContentType?.Split(';').FirstOrDefault()?.Trim().ToLower();
