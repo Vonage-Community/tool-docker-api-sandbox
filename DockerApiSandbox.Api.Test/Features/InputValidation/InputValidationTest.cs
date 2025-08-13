@@ -1,14 +1,15 @@
 ﻿#region
 using System.Net;
+using Xunit.Abstractions;
 #endregion
 
 
 
 namespace DockerApiSandbox.Api.Test.Features.InputValidation;
 
-public class InputValidationTest
+public class InputValidationTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder()
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper)
         .OverrideApplicationSpec(Path.GetFullPath("Features/InputValidation/Files/spec.json"))
         .WithEnvironmentVariable("CLEAR_SPECS", "true")
         .Build();

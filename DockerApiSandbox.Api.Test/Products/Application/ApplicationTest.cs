@@ -1,10 +1,11 @@
 ﻿using System.Net;
+using Xunit.Abstractions;
 
 namespace DockerApiSandbox.Api.Test.Products.Application;
 
-public class ApplicationTest
+public class ApplicationTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder().Build();
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper).Build();
 
     [Fact]
     public async Task GetApplications_ShouldReturnOk()

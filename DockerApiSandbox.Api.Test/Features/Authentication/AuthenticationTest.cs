@@ -1,13 +1,14 @@
 ﻿#region
 using System.Net;
 using FluentAssertions;
+using Xunit.Abstractions;
 #endregion
 
 namespace DockerApiSandbox.Api.Test.Features.Authentication;
 
-public class AuthenticationTest
+public class AuthenticationTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder()
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper)
         .OverrideApplicationSpec(Path.GetFullPath("Features/Authentication/Files/spec.json"))
         .WithEnvironmentVariable("CLEAR_SPECS", "true")
         .Build();

@@ -1,13 +1,14 @@
 ﻿#region
 using System.Net;
 using System.Text.Json;
+using Xunit.Abstractions;
 #endregion
 
 namespace DockerApiSandbox.Api.Test.Features.OutputGeneration;
 
-public class OutputGenerationTest
+public class OutputGenerationTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder()
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper)
         .OverrideApplicationSpec(Path.GetFullPath("Features/OutputGeneration/Files/spec.json"))
         .WithEnvironmentVariable("CLEAR_SPECS", "true")
         .Build();

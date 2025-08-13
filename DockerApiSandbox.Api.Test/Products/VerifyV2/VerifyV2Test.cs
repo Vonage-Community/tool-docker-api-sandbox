@@ -1,10 +1,11 @@
 ﻿using System.Net;
+using Xunit.Abstractions;
 
 namespace DockerApiSandbox.Api.Test.Products.VerifyV2;
 
-public class VerifyV2Test
+public class VerifyV2Test(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder().Build();
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper).Build();
     
     [Theory]
     [InlineData("Bearer")]

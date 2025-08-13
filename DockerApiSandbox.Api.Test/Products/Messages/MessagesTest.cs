@@ -1,10 +1,11 @@
 ﻿using System.Net;
+using Xunit.Abstractions;
 
 namespace DockerApiSandbox.Api.Test.Products.Messages;
 
-public class MessagesTest
+public class MessagesTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder().Build();
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper).Build();
     
     [Theory]
     [InlineData("Bearer", "Products/Messages/Files/SendRcsText.json")]

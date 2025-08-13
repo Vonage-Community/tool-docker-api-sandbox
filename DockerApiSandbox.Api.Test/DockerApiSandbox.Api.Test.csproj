@@ -14,6 +14,7 @@
         <PackageReference Include="FluentAssertions.LanguageExt" Version="0.5.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.13" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageReference Include="Serilog.Sinks.XUnit" Version="3.0.19" />
         <PackageReference Include="Vonage" Version="8.2.0" />
         <PackageReference Include="WireMock.Net" Version="1.7.2" />
         <PackageReference Include="xunit" Version="2.9.3" />
@@ -371,11 +372,13 @@
         <None Update="Products\VerifyV2\Files\UpdateTemplateFragment.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Voice\Files\CreateCall.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Features\" />
-        <Folder Include="Products\Voice\Files\" />
     </ItemGroup>
 
 </Project>
