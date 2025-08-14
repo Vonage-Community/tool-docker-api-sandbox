@@ -143,7 +143,7 @@ public class InputValidationTest(ITestOutputHelper helper)
     [InlineData("{\"ncco\": \"value\", \"to\":[{\"type\":\"sip\", \"uri\":\"lol\"}]}")]
     [InlineData("{\"uri\": \"value\", \"to\":[{\"type\":\"phone\", \"number\":\"value\"}]}")]
     [InlineData("{\"uri\": \"value\", \"to\":[{\"type\":\"sip\", \"uri\":\"lol\"}]}")]
-    public async Task ShouldReturnOk_WhenOneOfArray(string json)
+    public async Task ShouldReturnOk_WhenOneOf(string json)
     {
         var response = await this.application.CreateClient().SendAsync(HttpRequestMessageBuilder.Build().WithHttpMethod(HttpMethod.Post)
             .WithUrl("/body/oneOf")

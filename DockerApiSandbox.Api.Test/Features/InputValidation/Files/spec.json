@@ -169,11 +169,10 @@
   },
   "components": {
     "schemas": {
-      "BaseModelWithNCCO": {
+      "BaseModel": {
         "type": "object",
         "required": [
-          "to",
-          "ncco"
+          "to"
         ],
         "properties": {
           "to": {
@@ -195,43 +194,44 @@
                 }
               }
             }
-          },
-          "ncco": {
-            "type": "string"
           }
         }
       },
-      "BaseModelWithUri": {
-        "type": "object",
-        "required": [
-          "to",
-          "uri"
-        ],
-        "properties": {
-          "to": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/EndpointPhone"
-                },
-                {
-                  "$ref": "#/components/schemas/EndpointSip"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "phone": "#/components/schemas/EndpointPhone",
-                  "sip": "#/components/schemas/EndpointSip"
-                }
+      "BaseModelWithNCCO": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "ncco"
+            ],
+            "properties": {
+              "ncco": {
+                "type": "string"
               }
             }
-          },
-          "uri": {
-            "type": "string"
           }
-        }
+        ]
+      },
+      "BaseModelWithUri": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "uri"
+            ],
+            "properties": {
+              "uri": {
+                "type": "string"
+              }
+            }
+          }
+        ]
       },
       "EndpointPhone": {
         "type": "object",
