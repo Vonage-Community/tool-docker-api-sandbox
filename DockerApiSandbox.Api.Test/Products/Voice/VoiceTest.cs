@@ -7,7 +7,9 @@ namespace DockerApiSandbox.Api.Test.Products.Voice;
 public class VoiceTest(ITestOutputHelper helper)
 {
     private readonly TestApplicationFactory<Program> application =
-        TestApplicationFactory<Program>.Builder(helper).Build();
+        TestApplicationFactory<Program>.Builder(helper)
+            .OverrideVoiceSpec(Path.GetFullPath("Products/Voice/Files/voice_local_v2.json"))
+            .Build();
 
     [Fact]
     public async Task CreateCall_ShouldReturnOk()
@@ -19,7 +21,7 @@ public class VoiceTest(ITestOutputHelper helper)
             .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/CreateCall.json"))
             .Create();
         var response = await this.application.CreateClient().SendAsync(request);
-        //response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 
     [Fact]
