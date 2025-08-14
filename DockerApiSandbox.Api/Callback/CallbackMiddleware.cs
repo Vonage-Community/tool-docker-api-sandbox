@@ -28,6 +28,7 @@ public class CallbackMiddleware(RequestDelegate next)
         var tasks = endpoint.GetCallbacks()
             .Select(operation => this.TriggerCallback(logger, environment, operation, endpoint));
         await Task.WhenAll(tasks);
+        _ = next;
     }
 
     private async Task TriggerCallback(ILogger<CallbackMiddleware> logger, IEnvironmentAdapter environment,
@@ -37,16 +38,16 @@ public class CallbackMiddleware(RequestDelegate next)
         var callback = new OperationCallback(endpoint.Api, operation.Value.OperationId);
         if (CallbackMapping.TryGetValue(callback, out var value) && environment.HasVariable(value))
         {
-            var httpRequestMessage =
-                new HttpRequestMessage(new HttpMethod(operation.Key.ToUpperInvariant()),
-                    new Uri(environment.GetVariable(value)))
+            await environment.GetVariable(value)
+                .Map(variable => new Uri(variable))
+                .Map(uri => new HttpRequestMessage(new HttpMethod(operation.Key.ToUpperInvariant()), uri)
                 {
                     Content = new StringContent(
                         operation.Value.RequestBody.Content[ContentTypeJson].Schema.ToSampleJson().ToString(),
                         Encoding.UTF8,
                         ContentTypeJson),
-                };
-            await this.TrySendRequest(logger, httpRequestMessage);
+                })
+                .IfSomeAsync( request => this.TrySendRequest(logger, request));
         }
     }
 

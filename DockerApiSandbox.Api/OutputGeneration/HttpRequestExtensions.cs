@@ -6,6 +6,6 @@ public static class HttpRequestExtensions
 {
     public static Maybe<string> ExtractExpectedResponse(this HttpRequest request) =>
         request.Headers.TryGetValue("Expected-Response", out var value)
-            ? value.First()
+            ? value.FirstOrDefault() ?? Maybe<string>.None
             : Maybe<string>.None;
 }

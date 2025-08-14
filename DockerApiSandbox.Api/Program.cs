@@ -35,14 +35,7 @@ var store = provider.GetRequiredService<DocumentStore>();
 var environment = provider.GetRequiredService<IEnvironmentAdapter>();
 await Task.WhenAll(store.LoadDocuments());
 var port = environment.GetVariable("PORT");
-if (string.IsNullOrEmpty(port))
-{
-    app.Run();
-}
-else
-{
-    app.Run($"http://0.0.0.0:{port}");
-}
+port.Do(some => app.Run($"http://0.0.0.0:{port}"), () => app.Run());
 
 namespace DockerApiSandbox.Api
 {

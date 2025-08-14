@@ -4,7 +4,7 @@ namespace DockerApiSandbox.Api.InputValidation;
 
 public static class StringExtensions
 {
-    public static object ConvertToType(this string value, JsonObjectType expectedType) =>
+    public static object? ConvertToType(this string value, JsonObjectType expectedType) =>
         expectedType switch
         {
             JsonObjectType.Integer => int.TryParse(value, out var intValue) ? intValue : null,

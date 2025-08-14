@@ -41,7 +41,7 @@ public static class HttpRequestExtensions
             .SelectMany(parameter => parameter.GetQueryParameterErrors(request.Query));
 
     private static string GetContentType(this HttpRequest request) =>
-        request.ContentType?.Split(';').FirstOrDefault()?.Trim().ToLower();
+        request.ContentType?.Split(';').FirstOrDefault()?.Trim().ToLower() ?? string.Empty;
 
     private static async Task<string> GetRequestBody(this HttpRequest request)
     {
@@ -56,8 +56,9 @@ public static class HttpRequestExtensions
     {
         var formData = HttpUtility.ParseQueryString(bodyContent);
         var schema = operation.Parameters.First(parameter => parameter.Kind == OpenApiParameterKind.Body).ActualSchema;
-        var valueDictionary = formData.AllKeys.Where(key => !string.IsNullOrEmpty(key))
-            .ToDictionary(key => key, value => formData[value])
+        var valueDictionary = formData.AllKeys
+            .Where(key => !string.IsNullOrEmpty(key))
+            .ToDictionary(key => key!, value => formData[value]!)
             .ToDictionary(
                 pair => pair.Key,
                 pair => pair.Value.ConvertToType(schema.Properties.First(jsonProperty => jsonProperty.Key == pair.Key)

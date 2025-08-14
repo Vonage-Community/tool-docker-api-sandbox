@@ -15,6 +15,6 @@ public class HealthCheckController(IEnvironmentAdapter environment) : Controller
     public IActionResult GetEnvironmentVariable(string name)
     {
         var value = environment.GetVariable(name);
-        return value is null ? this.NotFound() : this.Ok(value);
+        return value.Match(IActionResult (some) => this.Ok(some), this.NotFound);
     }
 }

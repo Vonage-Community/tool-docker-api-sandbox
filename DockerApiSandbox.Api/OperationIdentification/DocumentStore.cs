@@ -16,15 +16,14 @@ internal class DocumentStore(
     DocumentClient documentClient,
     IEnvironmentAdapter environment)
 {
-    private async Task<Maybe<Product>> FetchDocument(ApiSpecification spec)
+    public IEnumerable<Task<Maybe<Product>>> LoadDocuments()
     {
-        if (!cache.TryGetValue(spec.SupportedApi, out Maybe<OpenApiDocument> document))
+        var uris = environment.GetVariable("CLEAR_SPECS").IfNone(string.Empty) switch
         {
-            document = await documentClient.DownloadDocument(spec);
-            document.IfSome(some => this.AddDocumentToCache(spec.SupportedApi, some));
-        }
-
-        return document.Map(some => new Product(spec.SupportedApi, some));
+            "true" => GetUrisFromEnvironment(environment),
+            _ => GetUrisFromConfiguration(configuration).Select(uri => uri.Overwrite(environment)),
+        };
+        return uris.Select(this.FetchDocument);
     }
 
     private void AddDocumentToCache(SupportedApi api, OpenApiDocument document)
@@ -36,24 +35,24 @@ internal class DocumentStore(
         logger.LogInformation($"Document for {api} added to cache");
     }
 
-    public IEnumerable<Task<Maybe<Product>>> LoadDocuments()
+    private async Task<Maybe<Product>> FetchDocument(ApiSpecification spec)
     {
-        var shouldClear = environment.GetVariable("CLEAR_SPECS");
-        var uris = shouldClear switch
+        if (!cache.TryGetValue(spec.SupportedApi, out Maybe<OpenApiDocument> document))
         {
-            "true" => GetUrisFromEnvironment(environment),
-            _ => GetUrisFromConfiguration(configuration).Select(uri => uri.Overwrite(environment)),
-        };
+            document = await documentClient.DownloadDocument(spec);
+            document.IfSome(some => this.AddDocumentToCache(spec.SupportedApi, some));
+        }
 
-        return uris.Select(this.FetchDocument);    
+        return document.Map(some => new Product(spec.SupportedApi, some));
     }
 
-    private static IEnumerable<ApiSpecification> GetUrisFromConfiguration(IConfiguration configuration) => 
-        (configuration.GetSection("specs").Get<List<ApiSpecification>>() ?? []);
+    private static IEnumerable<ApiSpecification> GetUrisFromConfiguration(IConfiguration configuration) =>
+        configuration.GetSection("specs").Get<List<ApiSpecification>>() ?? [];
 
     private static IEnumerable<ApiSpecification> GetUrisFromEnvironment(IEnvironmentAdapter environment) =>
         Enum.GetValues<SupportedApi>()
-            .Select(api => new ApiSpecification(api, environment.GetVariable(api.AsString(EnumFormat.Description))))
+            .Select(api => new ApiSpecification(api,
+                environment.GetVariable(api.AsString(EnumFormat.Description) ?? string.Empty).IfNone(string.Empty)))
             .Where(spec => !string.IsNullOrEmpty(spec.Url));
 }
 
@@ -67,10 +66,10 @@ public enum SupportedApi
 
     [EnumMember(Value = "Voice")] [Description("SPEC_VOICE")]
     Voice,
-    
+
     [EnumMember(Value = "VerifyV2")] [Description("SPEC_VERIFY")]
     VerifyV2,
-    
+
     [EnumMember(Value = "Messages")] [Description("SPEC_MESSAGES")]
     Messages,
 }

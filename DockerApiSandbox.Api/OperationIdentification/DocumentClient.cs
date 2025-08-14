@@ -6,7 +6,7 @@ using Vonage.Common.Monads;
 
 namespace DockerApiSandbox.Api.OperationIdentification;
 
-public class DocumentClient(IEnvironmentAdapter environment, ILogger<DocumentClient> logger)
+public class DocumentClient(ILogger<DocumentClient> logger)
 {
     private const int RetryCount = 3;
 

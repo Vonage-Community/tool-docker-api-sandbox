@@ -16,5 +16,5 @@ public record Endpoint(
         ?? [];
     
     public static Endpoint FromHttpContext(HttpContext context) =>
-        (Endpoint) context.Items["endpoint"];
+        (Endpoint) context.Items["endpoint"]!;
 };

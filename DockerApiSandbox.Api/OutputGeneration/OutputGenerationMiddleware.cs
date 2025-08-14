@@ -41,7 +41,7 @@ public class OutputGenerationMiddleware(RequestDelegate next)
     private static async Task<Unit> WriteResponse(HttpContext context, ResponseData content)
     {
         context.Response.StatusCode = int.Parse(content.StatusCode);
-        content.Response.IfSome(async some =>
+        await content.Response.IfSomeAsync(async some =>
         {
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonConvert.SerializeObject(some));

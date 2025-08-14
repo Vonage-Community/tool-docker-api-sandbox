@@ -56,6 +56,6 @@ public class OutputGenerationTest(ITestOutputHelper helper)
         return JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(jsonString, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
-        });
+        }) ?? new Dictionary<string, JsonElement>();
     }
 }
