@@ -1,0 +1,9 @@
+﻿{
+  "to": [
+    {
+      "type": "phone",
+      "number": "123456789112"
+    }
+  ],
+  "answer_url": ["https://example.com/answer"]
+}

@@ -8,17 +8,22 @@ public class VoiceTest(ITestOutputHelper helper)
 {
     private readonly TestApplicationFactory<Program> application =
         TestApplicationFactory<Program>.Builder(helper)
-            .OverrideVoiceSpec(Path.GetFullPath("Products/Voice/Files/voice_local_v2.json"))
+            .OverrideVoiceSpec(Path.GetFullPath("Products/Voice/Files/voice_local_fixed.json"))
             .Build();
 
-    [Fact]
-    public async Task CreateCall_ShouldReturnOk()
+    [Theory]
+    [InlineData("CreateCall_AnswerUrl_Phone")]
+    [InlineData("CreateCall_NCCO_Phone")]
+    [InlineData("CreateCall_NCCO_Sip")]
+    [InlineData("CreateCall_NCCO_Vbc")]
+    [InlineData("CreateCall_NCCO_Websocket")]
+    public async Task CreateCall_ShouldReturnOk(string filename)
     {
         var request = HttpRequestMessageBuilder.Build()
             .WithHttpMethod(HttpMethod.Post)
             .WithUrl("/v1/calls")
             .WithAuthorizationHeader("Bearer")
-            .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/CreateCall.json"))
+            .WithJsonBodyFromFile(Path.GetFullPath($"Products/Voice/Files/{filename}.json"))
             .Create();
         var response = await this.application.CreateClient().SendAsync(request);
         response.StatusCode.Should().Be(HttpStatusCode.Created);

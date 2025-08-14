@@ -1,0 +1,14 @@
+﻿{
+  "to": [
+    {
+      "type": "websocket",
+      "content-type": "audio/l16;rate=8000"
+    }
+  ],
+  "ncco": [
+    {
+      "action": "talk",
+      "text": "Hello World"
+    }
+  ]
+}

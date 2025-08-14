@@ -1,0 +1,14 @@
+﻿{
+  "to": [
+    {
+      "type": "vbc",
+      "extension": "123456789112"
+    }
+  ],
+  "ncco": [
+    {
+      "action": "talk",
+      "text": "Hello World"
+    }
+  ]
+}

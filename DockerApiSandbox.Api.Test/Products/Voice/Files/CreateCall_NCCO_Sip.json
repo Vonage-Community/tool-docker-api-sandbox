@@ -1,0 +1,14 @@
+﻿{
+  "to": [
+    {
+      "type": "sip",
+      "uri": "https://example.com"
+    }
+  ],
+  "ncco": [
+    {
+      "action": "talk",
+      "text": "Hello World"
+    }
+  ]
+}
