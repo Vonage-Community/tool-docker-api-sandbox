@@ -137,4 +137,16 @@ public class InputValidationTest(ITestOutputHelper helper)
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
+    
+    [Theory]
+    [InlineData("{\"to\":[{\"type\":\"phone\", \"number\":\"lol\"}]}")]
+    [InlineData("{\"to\":[{\"type\":\"sip\", \"uri\":\"lol\"}]}")]
+    public async Task ShouldReturnOk_WhenOneOfArray(string json)
+    {
+        var response = await this.application.CreateClient().SendAsync(HttpRequestMessageBuilder.Build().WithHttpMethod(HttpMethod.Post)
+            .WithUrl("/body/oneOf")
+            .WithJsonBody(json)
+            .Create());
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
 }

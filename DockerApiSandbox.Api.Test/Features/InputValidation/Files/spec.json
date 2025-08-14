@@ -138,6 +138,94 @@
           }
         }
       }
+    },
+    "/body/oneOf": {
+      "post": {
+        "operationId": "body-oneOf-post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BaseModel"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BaseModel": {
+        "type": "object",
+        "required": [
+          "to"
+        ],
+        "properties": {
+          "to": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/EndpointPhone"
+                },
+                {
+                  "$ref": "#/components/schemas/EndpointSip"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "phone": "#/components/schemas/EndpointPhone",
+                  "sip": "#/components/schemas/EndpointSip"
+                }
+              }
+            }
+          }
+        }
+      },
+      "EndpointPhone": {
+        "type": "object",
+        "required": [
+          "number",
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "phone"
+          },
+          "number": {
+            "type": "string"
+          }
+        }
+      },
+      "EndpointSip": {
+        "type": "object",
+        "required": [
+          "uri",
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "sip"
+          },
+          "uri": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
