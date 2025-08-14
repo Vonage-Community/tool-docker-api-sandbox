@@ -390,6 +390,27 @@
         <None Update="Products\Voice\Files\CreateCall_AnswerUrl_Phone.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Voice\Files\Modify_Earmuff.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_Unearmuff.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_Unmute.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_Mute.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_Hangup.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_TransferAnswerUrl.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\Modify_TransferNcco.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

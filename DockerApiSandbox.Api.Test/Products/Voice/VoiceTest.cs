@@ -28,6 +28,26 @@ public class VoiceTest(ITestOutputHelper helper)
         var response = await this.application.CreateClient().SendAsync(request);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
+    
+    [Theory]
+    [InlineData("Modify_Earmuff")]
+    [InlineData("Modify_Unearmuff")]
+    [InlineData("Modify_Mute")]
+    [InlineData("Modify_Unmute")]
+    [InlineData("Modify_Hangup")]
+    [InlineData("Modify_TransferAnswerUrl")]
+    [InlineData("Modify_TransferNcco")]
+    public async Task ModifyCall_ShouldReturnOk(string filename)
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Put)
+            .WithUrl("/v1/calls/CALL-123")
+            .WithAuthorizationHeader("Bearer")
+            .WithJsonBodyFromFile(Path.GetFullPath($"Products/Voice/Files/{filename}.json"))
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
 
     [Fact]
     public async Task GetCall_ShouldReturnOk()
