@@ -97,4 +97,67 @@ public class VoiceTest(ITestOutputHelper helper)
         var response = await this.application.CreateClient().SendAsync(request);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+    
+    [Fact]
+    public async Task PlayTextToSpeech_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Put)
+            .WithUrl("/v1/calls/CALL-123/talk")
+            .WithAuthorizationHeader("Bearer")
+            .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/PlayTextToSpeech.json"))
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task StopTextToSpeech_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Delete)
+            .WithUrl("/v1/calls/CALL-123/talk")
+            .WithAuthorizationHeader("Bearer")
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task PlayDtmf_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Put)
+            .WithUrl("/v1/calls/CALL-123/dtmf")
+            .WithAuthorizationHeader("Bearer")
+            .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/PlayDtmf.json"))
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task SubscribeToRealTimeEvents_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Put)
+            .WithUrl("/v1/calls/CALL-123/input/dtmf")
+            .WithAuthorizationHeader("Bearer")
+            .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/SubscribeToRealTimeEvents.json"))
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task UnsubscribeToRealTimeEvents_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Delete)
+            .WithUrl("/v1/calls/CALL-123/input/dtmf")
+            .WithAuthorizationHeader("Bearer")
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }

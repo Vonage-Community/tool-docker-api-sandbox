@@ -414,6 +414,15 @@
         <None Update="Products\Voice\Files\StreamAudio.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Voice\Files\PlayTextToSpeech.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\PlayDtmf.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Voice\Files\SubscribeToRealTimeEvents.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

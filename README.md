@@ -154,9 +154,10 @@ public async Task HealthCheckTest()
 | API              | Supported?  |
 |------------------|:-----------:|
 | Applications API |      ✅      |
+| Messages API     | ❌ (partial) |
 | SMS API          |      ✅      |
 | Verify V2 API    | ❌ (partial) |
-| Voice API        | ❌ (partial) |
+| Voice API        |      ✅      |
 
 ## Contributing
 
