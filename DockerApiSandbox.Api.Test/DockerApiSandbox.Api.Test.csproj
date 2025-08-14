@@ -411,6 +411,9 @@
         <None Update="Products\Voice\Files\Modify_TransferNcco.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Voice\Files\StreamAudio.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

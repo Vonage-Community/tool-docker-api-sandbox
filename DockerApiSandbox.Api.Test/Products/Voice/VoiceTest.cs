@@ -72,4 +72,29 @@ public class VoiceTest(ITestOutputHelper helper)
         var response = await this.application.CreateClient().SendAsync(request);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+    
+    [Fact]
+    public async Task StreamAudio_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Put)
+            .WithUrl("/v1/calls/CALL-123/stream")
+            .WithAuthorizationHeader("Bearer")
+            .WithJsonBodyFromFile(Path.GetFullPath("Products/Voice/Files/StreamAudio.json"))
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task StopStreamAudio_ShouldReturnOk()
+    {
+        var request = HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Delete)
+            .WithUrl("/v1/calls/CALL-123/stream")
+            .WithAuthorizationHeader("Bearer")
+            .Create();
+        var response = await this.application.CreateClient().SendAsync(request);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
