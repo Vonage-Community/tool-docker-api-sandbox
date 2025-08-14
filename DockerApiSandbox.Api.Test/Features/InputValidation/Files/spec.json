@@ -147,9 +147,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
+                "oneOf": [
                   {
-                    "$ref": "#/components/schemas/BaseModel"
+                    "$ref": "#/components/schemas/BaseModelWithNCCO"
+                  },
+                  {
+                    "$ref": "#/components/schemas/BaseModelWithUri"
                   }
                 ]
               }
@@ -166,10 +169,11 @@
   },
   "components": {
     "schemas": {
-      "BaseModel": {
+      "BaseModelWithNCCO": {
         "type": "object",
         "required": [
-          "to"
+          "to",
+          "ncco"
         ],
         "properties": {
           "to": {
@@ -191,6 +195,41 @@
                 }
               }
             }
+          },
+          "ncco": {
+            "type": "string"
+          }
+        }
+      },
+      "BaseModelWithUri": {
+        "type": "object",
+        "required": [
+          "to",
+          "uri"
+        ],
+        "properties": {
+          "to": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/EndpointPhone"
+                },
+                {
+                  "$ref": "#/components/schemas/EndpointSip"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "phone": "#/components/schemas/EndpointPhone",
+                  "sip": "#/components/schemas/EndpointSip"
+                }
+              }
+            }
+          },
+          "uri": {
+            "type": "string"
           }
         }
       },
