@@ -553,7 +553,7 @@
         "properties": {
           "digits": {
             "type": "string",
-            "example": 1713,
+            "example": "1713",
             "description": "The digits to send"
           }
         }
