@@ -5,5 +5,25 @@
       "number": "123456789112"
     }
   ],
-  "answer_url": ["https://example.com/answer"]
+  "from": {
+    "type": "phone",
+    "number": "14155550100"
+  },
+  "random_from_number": false,
+  "event_url": [
+    "https://example.com/event"
+  ],
+  "event_method": "POST",
+  "machine_detection": "continue",
+  "advanced_machine_detection": {
+    "behavior": "continue",
+    "mode": "default",
+    "beep_timeout": 45
+  },
+  "length_timer": 7200,
+  "ringing_timer": 60,
+  "answer_url": [
+    "https://example.com/answer"
+  ],
+  "answer_method": "POST"
 }
