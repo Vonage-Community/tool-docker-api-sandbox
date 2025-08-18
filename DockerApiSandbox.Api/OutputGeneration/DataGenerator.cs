@@ -15,6 +15,11 @@ internal static class DataGenerator
             return GenerateData(schema.OneOf.First().ActualSchema);
         }
 
+        if (schema.AllOf.Count > 0)
+        {
+            return GenerateData(schema.AllOf.First().ActualSchema);
+        }
+
         if (schema.Enumeration?.Count > 0 &&
             schema.Enumeration.ToList()[new Random().Next(schema.Enumeration.Count)] is string enumValue)
         {
