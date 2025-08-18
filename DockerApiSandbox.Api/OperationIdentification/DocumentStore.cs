@@ -75,4 +75,7 @@ public enum SupportedApi
     
     [EnumMember(Value = "SimSwap")] [Description("SPEC_SIMSWAP")]
     SimSwap,
+    
+    [EnumMember(Value = "IdentityInsights")] [Description("SPEC_IDENTITY_INSIGHTS")]
+    IdentityInsights,
 }

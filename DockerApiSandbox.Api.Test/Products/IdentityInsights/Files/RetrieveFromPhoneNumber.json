@@ -1,0 +1,36 @@
+﻿{
+  "phone_number": "14040000000",
+  "purpose": "FraudPreventionAndDetection",
+  "insights": {
+    "format": {},
+    "sim_swap": {
+      "period": 240
+    },
+    "original_carrier": {},
+    "current_carrier": {},
+    "location_verification": {
+      "location": {
+        "type": "CIRCLE",
+        "radius": 3000,
+        "center": {
+          "latitude": -90,
+          "longitude": -180
+        }
+      }
+    },
+    "subscriber_match": {
+      "id_document": "66666666q",
+      "name": "Federica Sanchez Arjona",
+      "given_name": "Federica",
+      "family_name": "Sanchez Arjona",
+      "address": "101 Crawfords Corner Road Ste 2416",
+      "street_name": "Crawfords Corner Road",
+      "street_number": "4",
+      "postal_code": "07733",
+      "locality": "Holmdel",
+      "country": "US",
+      "house_number_extension": "Suite 2416",
+      "birthdate": "2020-01-01"
+    }
+  }
+}

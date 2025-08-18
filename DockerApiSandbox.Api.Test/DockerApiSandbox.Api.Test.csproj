@@ -429,6 +429,9 @@
         <None Update="Products\SimSwap\Files\RetrieveDate.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\IdentityInsights\Files\RetrieveFromPhoneNumber.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
