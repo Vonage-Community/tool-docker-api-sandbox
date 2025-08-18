@@ -12,7 +12,8 @@ public record Endpoint(
         this.Operation.Security?
             .SelectMany(requirement => requirement.Keys)
             .Where(this.SecuritySchemes.ContainsKey)
-            .Select(schemeKey => this.SecuritySchemes[schemeKey].Scheme.ToLowerInvariant())
+            .Select(schemeKey => this.SecuritySchemes[schemeKey].Scheme ?? this.SecuritySchemes[schemeKey].Type.ToString())
+            .Select(scheme => scheme.ToLowerInvariant())
         ?? [];
     
     public static Endpoint FromHttpContext(HttpContext context) =>

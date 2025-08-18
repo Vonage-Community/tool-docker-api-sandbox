@@ -423,6 +423,12 @@
         <None Update="Products\Voice\Files\SubscribeToRealTimeEvents.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\SimSwap\Files\Check.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\SimSwap\Files\RetrieveDate.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

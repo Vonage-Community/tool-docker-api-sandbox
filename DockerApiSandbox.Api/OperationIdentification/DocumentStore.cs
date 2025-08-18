@@ -72,4 +72,7 @@ public enum SupportedApi
 
     [EnumMember(Value = "Messages")] [Description("SPEC_MESSAGES")]
     Messages,
+    
+    [EnumMember(Value = "SimSwap")] [Description("SPEC_SIMSWAP")]
+    SimSwap,
 }
