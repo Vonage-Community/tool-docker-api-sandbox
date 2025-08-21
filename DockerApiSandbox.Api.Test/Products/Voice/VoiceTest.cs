@@ -8,7 +8,6 @@ public class VoiceTest(ITestOutputHelper helper)
 {
     private readonly TestApplicationFactory<Program> application =
         TestApplicationFactory<Program>.Builder(helper)
-            .OverrideVoiceSpec(Path.GetFullPath("Products/Voice/Files/voice_local_fixed.json"))
             .Build();
 
     [Theory]

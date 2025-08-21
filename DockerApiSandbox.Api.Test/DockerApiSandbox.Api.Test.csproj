@@ -375,9 +375,6 @@
         <None Update="Products\Voice\Files\CreateCall_NCCO_Phone.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="Products\Voice\Files\voice_local_fixed.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
         <None Update="Products\Voice\Files\CreateCall_NCCO_Vbc.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
