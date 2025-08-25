@@ -429,6 +429,12 @@
         <None Update="Products\IdentityInsights\Files\RetrieveFromPhoneNumber.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Messages\Files\SendWithFailover.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Products\Messages\Files\messages_local.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

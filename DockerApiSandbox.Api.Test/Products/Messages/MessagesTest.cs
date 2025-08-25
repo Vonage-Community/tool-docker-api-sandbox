@@ -5,7 +5,9 @@ namespace DockerApiSandbox.Api.Test.Products.Messages;
 
 public class MessagesTest(ITestOutputHelper helper)
 {
-    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper).Build();
+    private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper)
+        .OverrideMessagesSpec(Path.GetFullPath("Products/Messages/Files/messages_local.json"))
+        .Build();
     
     [Theory]
     [InlineData("Bearer", "Products/Messages/Files/SendRcsText.json")]
@@ -55,6 +57,7 @@ public class MessagesTest(ITestOutputHelper helper)
     [InlineData("Basic", "Products/Messages/Files/SendViberImage.json")]
     [InlineData("Basic", "Products/Messages/Files/SendViberText.json")]
     [InlineData("Basic", "Products/Messages/Files/SendViberVideo.json")]
+    [InlineData("Basic", "Products/Messages/Files/SendWithFailover.json")]
     public async Task SendMessage_ShouldReturnAccepted(string auth, string filepath)
     {
         var request = HttpRequestMessageBuilder.Build()
