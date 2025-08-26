@@ -100,3 +100,38 @@ DockerApiSandbox.Api.Sample/        # Blazor demo app for live testing
 2. **Create new SupportedApi** in DocumentStore
 3. **Add tests** for the new API in the test suite
 4. **API should work automatically** unless the OpenAPI spec contains custom features requiring additional support
+
+## Design Decisions & Rationale
+
+### Error Handling & Spec Validation
+- **Decision**: Minimal OpenAPI spec validation at startup
+- **Rationale**: Specs published on Vonage Developer Portal are assumed well-formed and validated
+- **Implementation**: Failed specs are skipped with logging rather than crashing the sandbox
+- **Trade-off**: Prioritizes startup reliability over comprehensive validation
+
+### Observability & Monitoring
+- **Current State**: Serilog logging covers middleware pipeline progression, failures, fake output generation, callbacks, and response times
+- **OpenTelemetry Consideration**: Under evaluation with careful attention to PII/secrets in request bodies
+- **Approach**: Structured logging enables easy filtering of sensitive data
+- **Monitoring**: Request method/path/status logging without exposing sensitive payloads
+
+### Performance & Caching
+- **Decision**: Document store implements spec caching with TTL
+- **Response Generation**: Intentionally uses random data (not cached) to simulate real-world variability
+- **Rationale**: Testing should experience different response scenarios, not deterministic outputs
+
+### Testing Philosophy
+- **Deterministic Testing Challenge**: Random response generation makes exact output testing impractical
+- **Focus**: Validates request schemas and response structure rather than exact content values
+- **Callback Testing**: Uses same fake data generation logic as responses; determinism avoided intentionally
+- **Two-tier Approach**: Feature tests (controlled specs) vs Product tests (live portal specs)
+
+### Configuration Strategy
+- **Environment Variables**: Chosen for Docker deployment simplicity and standard container practices
+- **Runtime Configuration**: Currently requires restart for changes (startup-time configuration)
+- **Scope**: Focused on essential behavior control rather than granular response manipulation
+
+### Authentication Model
+- **Decision**: Presence-only validation (any non-empty auth header accepted)
+- **Rationale**: Sandbox purpose is integration testing, not security validation
+- **Benefit**: Eliminates credential management complexity for development/testing scenarios
