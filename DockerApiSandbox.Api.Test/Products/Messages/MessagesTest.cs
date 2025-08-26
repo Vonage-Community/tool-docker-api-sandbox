@@ -6,7 +6,6 @@ namespace DockerApiSandbox.Api.Test.Products.Messages;
 public class MessagesTest(ITestOutputHelper helper)
 {
     private readonly TestApplicationFactory<Program> application = TestApplicationFactory<Program>.Builder(helper)
-        .OverrideMessagesSpec(Path.GetFullPath("Products/Messages/Files/messages_local.json"))
         .Build();
     
     [Theory]
