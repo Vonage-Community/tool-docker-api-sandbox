@@ -6,7 +6,7 @@ namespace DockerApiSandbox.Api.OperationIdentification;
 
 internal class OperationIdentificationMiddleware(RequestDelegate next)
 {
-    public async Task InvokeAsync(HttpContext context, DocumentStore store,
+    public async Task InvokeAsync(HttpContext context, IDocumentStore store,
         ILogger<OperationIdentificationMiddleware> logger)
     {
         var products = await Task.WhenAll(store.LoadDocuments());

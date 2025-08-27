@@ -15,7 +15,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-builder.Services.AddScoped<DocumentStore>();
+builder.Services.AddScoped<IDocumentStore, DocumentStore>();
 builder.Services.AddScoped<DocumentClient>();
 builder.Services.AddScoped<IEnvironmentAdapter, EnvironmentAdapter>();
 builder.Services.Configure<List<ApiSpecification>>(builder.Configuration.GetSection("specs"));
@@ -31,7 +31,7 @@ app.MapWhen(context => !context.Request.Path.StartsWithSegments("/_"), branch =>
 app.UseHttpsRedirection();
 app.MapControllers();
 var provider = app.Services.CreateScope().ServiceProvider;
-var store = provider.GetRequiredService<DocumentStore>();
+var store = provider.GetRequiredService<IDocumentStore>();
 var environment = provider.GetRequiredService<IEnvironmentAdapter>();
 await Task.WhenAll(store.LoadDocuments());
 var port = environment.GetVariable("PORT");

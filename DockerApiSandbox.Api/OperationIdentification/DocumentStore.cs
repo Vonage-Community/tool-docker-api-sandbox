@@ -9,12 +9,18 @@ using Vonage.Common.Monads;
 
 namespace DockerApiSandbox.Api.OperationIdentification;
 
+public interface IDocumentStore
+{
+    IEnumerable<SupportedApi> GetLoadedApis();
+    IEnumerable<Task<Maybe<Product>>> LoadDocuments();
+}
+
 internal class DocumentStore(
     IMemoryCache cache,
     ILogger<DocumentStore> logger,
     IConfiguration configuration,
     DocumentClient documentClient,
-    IEnvironmentAdapter environment)
+    IEnvironmentAdapter environment) : IDocumentStore
 {
     public IEnumerable<Task<Maybe<Product>>> LoadDocuments()
     {
@@ -25,6 +31,11 @@ internal class DocumentStore(
         };
         return uris.Select(this.FetchDocument);
     }
+
+    public IEnumerable<SupportedApi> GetLoadedApis() =>
+        Enum.GetValues<SupportedApi>()
+            .Where(api => cache.TryGetValue(api, out _))
+            .ToArray();
 
     private void AddDocumentToCache(SupportedApi api, OpenApiDocument document)
     {
