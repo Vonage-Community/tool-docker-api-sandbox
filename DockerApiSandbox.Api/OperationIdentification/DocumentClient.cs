@@ -2,6 +2,8 @@
 using NSwag;
 using Polly;
 using Vonage.Common.Monads;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 #endregion
 
 namespace DockerApiSandbox.Api.OperationIdentification;
@@ -15,16 +17,36 @@ public class DocumentClient(ILogger<DocumentClient> logger)
         .WaitAndRetryAsync(
             RetryCount,
             EvaluateTimeBeforeRetry,
-            (_, timespan, retryAttempt, _) => logger.LogWarning("Retry {RetryAttempt} for document download. Waiting {TimeSpan} before next attempt.", retryAttempt, timespan));
+            (_, timespan, retryAttempt, _) =>
+                logger.LogWarning("Retry {RetryAttempt} for document download. Waiting {TimeSpan} before next attempt.",
+                    retryAttempt, timespan));
 
     public async Task<Maybe<OpenApiDocument>> DownloadDocument(ApiSpecification spec) => await ParseUri(spec.Url)
         .BindAsync(uri => uri.Scheme == "file" ? this.DownloadFromFile(uri) : this.DownloadFromUri(uri));
+
+    private static async Task<string> ConvertToJson(string path)
+    {
+        var fileContent = await File.ReadAllTextAsync(path);
+        var yamlObject = new DeserializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build().Deserialize(fileContent);
+        return new SerializerBuilder()
+            .JsonCompatible()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build().Serialize(yamlObject);
+    }
 
     private async Task<Maybe<OpenApiDocument>> DownloadFromFile(Uri uri)
     {
         logger.LogInformation($"Downloading document from path {uri}...");
         try
         {
+            if (HasYmlExtension(uri))
+            {
+                var json = await ConvertToJson(uri.AbsolutePath);
+                return await OpenApiDocument.FromJsonAsync(json);
+            }
+
             return await OpenApiDocument.FromFileAsync(uri.AbsolutePath);
         }
         catch (Exception exception)
@@ -51,5 +73,8 @@ public class DocumentClient(ILogger<DocumentClient> logger)
     private static TimeSpan EvaluateTimeBeforeRetry(int retryAttempt) =>
         TimeSpan.FromSeconds(retryAttempt) + TimeSpan.FromMilliseconds(Random.Shared.Next(0, 1000));
 
-    private static Maybe<Uri> ParseUri(string path) => Uri.TryCreate(path, UriKind.Absolute, out var uri) ? uri : Maybe<Uri>.None;
+    private static bool HasYmlExtension(Uri uri) => new FileInfo(uri.AbsolutePath).Extension == ".yml";
+
+    private static Maybe<Uri> ParseUri(string path) =>
+        Uri.TryCreate(path, UriKind.Absolute, out var uri) ? uri : Maybe<Uri>.None;
 }
