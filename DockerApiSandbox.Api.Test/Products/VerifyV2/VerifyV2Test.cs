@@ -27,7 +27,7 @@ public class VerifyV2Test(ITestOutputHelper helper)
     [InlineData("Products/VerifyV2/Files/SendRequest_Voice.json")]
     [InlineData("Products/VerifyV2/Files/SendRequest_WhatsApp.json")]
     [InlineData("Products/VerifyV2/Files/SendRequest_Email.json")]
-    //[InlineData("Products/VerifyV2/Files/SendRequest_Fallback.json")]
+    [InlineData("Products/VerifyV2/Files/SendRequest_Fallback.json")]
     public async Task SendRequest_ShouldReturnNoContent(string filepath)
     {
         var request = HttpRequestMessageBuilder.Build()
