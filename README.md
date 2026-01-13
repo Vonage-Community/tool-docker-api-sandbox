@@ -151,15 +151,15 @@ public async Task HealthCheckTest()
 
 ## Supported APIs
 
-| API                  | Supported?  |
-|----------------------|:-----------:|
-| Applications API     |      ✅      |
-| IdentityInsights API |      ✅      |
-| Messages API         |      ✅      |
-| SimSwap API          |      ✅      |
-| SMS API              |      ✅      |
-| Verify V2 API        | ❌ (partial) |
-| Voice API            |      ✅      |
+| API                  | Supported? |
+|----------------------|:----------:|
+| Applications API     |     ✅      |
+| IdentityInsights API |     ✅      |
+| Messages API         |     ✅      |
+| SimSwap API          |     ✅      |
+| SMS API              |     ✅      |
+| Verify V2 API        |     ✅      |
+| Voice API            |     ✅      |
 
 ## Contributing
 
