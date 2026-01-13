@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
+﻿#region
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http.Extensions;
 using NSwag;
 using Vonage.Common.Monads;
+#endregion
 
 namespace DockerApiSandbox.Api.OperationIdentification;
 
@@ -10,7 +13,7 @@ public record Product(SupportedApi Api, OpenApiDocument Specification)
     {
         var requestUri = new Uri(request.GetDisplayUrl());
         var method = request.Method.ToLowerInvariant();
-        var serverUrl = new Uri(this.Specification.Servers.First().Url);
+        var serverUrl = this.ParseServerUrl();
         var paths = this.Specification.Paths.Select(path =>
             new KeyValuePair<string, OpenApiPathItem>(CombinePaths(serverUrl.AbsolutePath, path.Key), path.Value));
         foreach (var item in paths
@@ -24,7 +27,14 @@ public record Product(SupportedApi Api, OpenApiDocument Specification)
         }
     }
 
-    private static int OrderBySpecificity(KeyValuePair<string, OpenApiPathItem> endpoint) => endpoint.Key.Contains('{') ? 1 : 0;
+    private Uri ParseServerUrl()
+    {
+        var urlWithoutParameters = Regex.Replace(this.Specification.Servers.First().Url, @"\{[^}]+\}", "placeholder");
+        return new Uri(urlWithoutParameters);
+    }
+
+    private static int OrderBySpecificity(KeyValuePair<string, OpenApiPathItem> endpoint) =>
+        endpoint.Key.Contains('{') ? 1 : 0;
 
     private static string CombinePaths(string basePath, string relativePath) =>
         string.IsNullOrEmpty(basePath) || basePath == "/"
