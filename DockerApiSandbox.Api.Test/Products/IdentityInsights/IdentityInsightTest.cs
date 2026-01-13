@@ -11,7 +11,7 @@ public class IdentityInsightsTest(ITestOutputHelper helper)
     {
         var request = HttpRequestMessageBuilder.Build()
             .WithHttpMethod(HttpMethod.Post)
-            .WithUrl("/v0.1/identity-insights")
+            .WithUrl("/identity-insights/v1/requests")
             .WithAuthorizationHeader("Bearer")
             .WithJsonBodyFromFile(Path.GetFullPath("Products/IdentityInsights/Files/RetrieveFromPhoneNumber.json"))
             .Create();
