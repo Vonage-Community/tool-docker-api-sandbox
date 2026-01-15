@@ -92,4 +92,7 @@ public enum SupportedApi
     
     [EnumMember(Value = "Emergency")] [Description("SPEC_EMERGENCY")]
     Emergency,
+    
+    [EnumMember(Value = "Address")] [Description("SPEC_ADDRESS")]
+    Address,
 }
