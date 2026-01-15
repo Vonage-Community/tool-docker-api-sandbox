@@ -1,5 +1,9 @@
 #region
+using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.Json;
+using DockerApiSandbox.Api.OperationIdentification;
+using EnumsNET;
 using Xunit.Abstractions;
 #endregion
 
@@ -52,8 +56,6 @@ public class HealthCheckTest(ITestOutputHelper helper)
             .SendAsync(new HttpRequestMessage(HttpMethod.Get, "/_/health"));
         result.StatusCode.Should().Be(HttpStatusCode.OK);
         var content = await result.Content.ReadAsStringAsync();
-        var specs = JsonSerializer.Deserialize<string[]>(content);
-        specs.Should().BeEquivalentTo("Sms", "Application", "Voice", "VerifyV2", "Messages", "SimSwap",
-            "IdentityInsights");
+        JsonSerializer.Deserialize<string[]>(content).Should().BeEquivalentTo(Enum.GetValues<SupportedApi>().Select(api => api.AsString()));
     }
 }
