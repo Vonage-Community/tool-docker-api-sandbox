@@ -89,4 +89,7 @@ public enum SupportedApi
     
     [EnumMember(Value = "IdentityInsights")] [Description("SPEC_IDENTITY_INSIGHTS")]
     IdentityInsights,
+    
+    [EnumMember(Value = "Emergency")] [Description("SPEC_EMERGENCY")]
+    Emergency,
 }

@@ -435,6 +435,9 @@
         <None Update="Products\Messages\Files\messages_local.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Emergency\Files\PatchNumber.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
