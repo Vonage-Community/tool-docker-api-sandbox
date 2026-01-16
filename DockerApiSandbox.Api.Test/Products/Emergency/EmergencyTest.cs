@@ -22,7 +22,7 @@ public class EmergencyTest(ITestOutputHelper helper)
     }
     
     [Fact]
-    public async Task PatchNumber()
+    public async Task AssignNumber()
     {
         var request = HttpRequestMessageBuilder.Build()
             .WithHttpMethod(HttpMethod.Patch)
