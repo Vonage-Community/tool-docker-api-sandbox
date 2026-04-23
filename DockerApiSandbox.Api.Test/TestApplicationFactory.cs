@@ -60,6 +60,12 @@ public class ApplicationBuilder<TStartup>(ITestOutputHelper helper) where TStart
         this.variables.Add("SPEC_MESSAGES", value);
         return this;
     }
+    
+    public ApplicationBuilder<TStartup> OverrideIdentityInsightsSpec(string value)
+    {
+        this.variables.Add("SPEC_IDENTITY_INSIGHTS", value);
+        return this;
+    }
 
     public ApplicationBuilder<TStartup> OverrideSmsSpec(string value)
     {
