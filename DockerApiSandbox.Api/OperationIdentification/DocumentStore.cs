@@ -98,4 +98,7 @@ public enum SupportedApi
 
     [EnumMember(Value = "Redact")] [Description("SPEC_REDACT")]
     Redact,
+
+    [EnumMember(Value = "Numbers")] [Description("SPEC_NUMBERS")]
+    Numbers,
 }
