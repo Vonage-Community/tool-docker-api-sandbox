@@ -85,6 +85,12 @@ public class ApplicationBuilder<TStartup>(ITestOutputHelper helper) where TStart
         return this;
     }
 
+    public ApplicationBuilder<TStartup> OverrideRedactSpec(string value)
+    {
+        this.variables.Add("SPEC_REDACT", value);
+        return this;
+    }
+
     public ApplicationBuilder<TStartup> WithEnvironmentVariable(string key, string value)
     {
         this.variables.Add(key, value);

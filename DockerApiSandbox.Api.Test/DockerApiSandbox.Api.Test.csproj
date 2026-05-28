@@ -441,6 +441,9 @@
         <None Update="Products\Address\Files\CreateAddress.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Redact\Files\RedactTransaction.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

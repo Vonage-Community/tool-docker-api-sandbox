@@ -95,4 +95,7 @@ public enum SupportedApi
     
     [EnumMember(Value = "Address")] [Description("SPEC_ADDRESS")]
     Address,
+
+    [EnumMember(Value = "Redact")] [Description("SPEC_REDACT")]
+    Redact,
 }

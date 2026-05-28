@@ -158,6 +158,7 @@ public async Task HealthCheckTest()
 | Emergency API        |     ✅      |
 | IdentityInsights API |     ✅      |
 | Messages API         |     ✅      |
+| Redact API           |     ✅      |
 | SimSwap API          |     ✅      |
 | SMS API              |     ✅      |
 | Verify V2 API        |     ✅      |
