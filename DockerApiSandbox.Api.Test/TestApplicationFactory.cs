@@ -97,6 +97,12 @@ public class ApplicationBuilder<TStartup>(ITestOutputHelper helper) where TStart
         return this;
     }
 
+    public ApplicationBuilder<TStartup> OverrideAccountSpec(string value)
+    {
+        this.variables.Add("SPEC_ACCOUNT", value);
+        return this;
+    }
+
     public ApplicationBuilder<TStartup> WithEnvironmentVariable(string key, string value)
     {
         this.variables.Add(key, value);

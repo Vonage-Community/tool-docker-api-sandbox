@@ -138,6 +138,17 @@ public class InputValidationTest(ITestOutputHelper helper)
     }
 
     
+    [Fact]
+    public async Task ShouldReturnOk_WithValidFormBody_FormOnlyEndpoint()
+    {
+        var response = await this.application.CreateClient().SendAsync(HttpRequestMessageBuilder.Build()
+            .WithHttpMethod(HttpMethod.Post)
+            .WithUrl("/form-only")
+            .WithFormBody("trx=8ef2447e69604f642ae59363aa5f781b")
+            .Create());
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
     [Theory]
     [InlineData("{\"ncco\": \"value\", \"to\":[{\"type\":\"phone\", \"number\":\"value\"}]}")]
     [InlineData("{\"ncco\": \"value\", \"to\":[{\"type\":\"sip\", \"uri\":\"lol\"}]}")]

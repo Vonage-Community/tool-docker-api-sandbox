@@ -101,4 +101,7 @@ public enum SupportedApi
 
     [EnumMember(Value = "Numbers")] [Description("SPEC_NUMBERS")]
     Numbers,
+
+    [EnumMember(Value = "Account")] [Description("SPEC_ACCOUNT")]
+    Account,
 }

@@ -444,6 +444,9 @@
         <None Update="Products\Redact\Files\RedactTransaction.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Products\Account\Files\CreateApiSecret.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

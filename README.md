@@ -153,6 +153,7 @@ public async Task HealthCheckTest()
 
 | API                  | Supported? |
 |----------------------|:----------:|
+| Account API          |     ✅      |
 | Address API          |     ✅      |
 | Applications API     |     ✅      |
 | Emergency API        |     ✅      |

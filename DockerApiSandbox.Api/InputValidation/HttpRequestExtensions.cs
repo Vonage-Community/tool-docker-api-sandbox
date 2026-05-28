@@ -55,7 +55,9 @@ public static class HttpRequestExtensions
     private static string SerializeFormUrlEncodedIntoJson(OpenApiOperation operation, string bodyContent)
     {
         var formData = HttpUtility.ParseQueryString(bodyContent);
-        var schema = operation.Parameters.First(parameter => parameter.Kind == OpenApiParameterKind.Body).ActualSchema;
+        var schema = operation.ActualRequestBody.Content
+            .First(content => content.Key.Equals(ContentTypeForm, StringComparison.OrdinalIgnoreCase))
+            .Value.Schema.ActualSchema;
         var valueDictionary = formData.AllKeys
             .Where(key => !string.IsNullOrEmpty(key))
             .ToDictionary(key => key!, value => formData[value]!)

@@ -139,6 +139,19 @@
         }
       }
     },
+    "/form-only": {
+      "post": {
+        "operationId": "form-only-post",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/FormOnlyRequest"
+        },
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        }
+      }
+    },
     "/body/oneOf": {
       "post": {
         "operationId": "body-oneOf-post",
@@ -168,6 +181,24 @@
     }
   },
   "components": {
+    "requestBodies": {
+      "FormOnlyRequest": {
+        "content": {
+          "application/x-www-form-urlencoded": {
+            "schema": {
+              "required": [
+                "trx"
+              ],
+              "properties": {
+                "trx": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "schemas": {
       "BaseModel": {
         "type": "object",
